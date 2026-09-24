@@ -1,0 +1,3529 @@
+basePath: /
+definitions:
+  github_com_didihart_vescrow_backend_internal_auth.KYCStatus:
+    enum:
+    - none
+    - pending
+    - approved
+    - rejected
+    type: string
+    x-enum-varnames:
+    - KYCStatusNone
+    - KYCStatusPending
+    - KYCStatusApproved
+    - KYCStatusRejected
+  github_com_didihart_vescrow_backend_internal_auth.KYCTier:
+    enum:
+    - none
+    - tier1
+    - tier2
+    - tier3
+    type: string
+    x-enum-varnames:
+    - KYCTierNone
+    - KYCTier1
+    - KYCTier2
+    - KYCTier3
+  github_com_didihart_vescrow_backend_internal_auth.Role:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      permissions:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse:
+    properties:
+      message:
+        example: An error occurred
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  github_com_didihart_vescrow_backend_internal_auth.User:
+    properties:
+      avatar_url:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      email_verified:
+        type: boolean
+      id:
+        type: string
+      is_2fa_enabled:
+        type: boolean
+      kyc_status:
+        allOf:
+        - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.KYCStatus'
+        description: none, pending, approved, rejected
+      kyc_tier:
+        allOf:
+        - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.KYCTier'
+        description: none, tier1, tier2, tier3
+      name:
+        type: string
+      phone:
+        type: string
+      phone_verified:
+        type: boolean
+      role:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.Role'
+      role_id:
+        type: integer
+      status:
+        allOf:
+        - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.UserStatus'
+        description: active, suspended, banned
+      updated_at:
+        type: string
+    type: object
+  github_com_didihart_vescrow_backend_internal_auth.UserStatus:
+    enum:
+    - active
+    - suspended
+    - banned
+    type: string
+    x-enum-varnames:
+    - UserStatusActive
+    - UserStatusSuspended
+    - UserStatusBanned
+  github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.FieldError'
+        type: array
+      message:
+        example: Validation failed
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  github_com_didihart_vescrow_backend_internal_common.APIResponse:
+    properties:
+      data: {}
+      errors: {}
+      message:
+        type: string
+      meta: {}
+      success:
+        type: boolean
+    type: object
+  github_com_didihart_vescrow_backend_internal_common.FieldError:
+    properties:
+      field:
+        type: string
+      message:
+        type: string
+    type: object
+  github_com_didihart_vescrow_backend_internal_common.PaginationMeta:
+    properties:
+      page:
+        type: integer
+      per_page:
+        type: integer
+      total:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  github_com_didihart_vescrow_backend_internal_escrow.Escrow:
+    properties:
+      amount_kobo:
+        type: integer
+      buyer:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      buyer_id:
+        type: string
+      completed_at:
+        type: string
+      created_at:
+        type: string
+      currency:
+        type: string
+      delivered_at:
+        description: Index for auto-release cron
+        type: string
+      delivery_date:
+        type: string
+      delivery_proof_url:
+        type: string
+      description:
+        type: string
+      escrow_fee_kobo:
+        type: integer
+      expires_at:
+        type: string
+      funded_at:
+        type: string
+      id:
+        type: string
+      inspection_period_days:
+        type: integer
+      messages:
+        items:
+          $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_escrow.Message'
+        type: array
+      metadata:
+        items:
+          type: integer
+        type: array
+      milestones:
+        description: Relationships
+        items:
+          $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_escrow.EscrowMilestone'
+        type: array
+      payment_method:
+        type: string
+      platform_fee_kobo:
+        type: integer
+      seller:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      seller_id:
+        type: string
+      status:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_escrow.EscrowStatus'
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  github_com_didihart_vescrow_backend_internal_escrow.EscrowMilestone:
+    properties:
+      amount_kobo:
+        type: integer
+      completed_at:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      due_date:
+        type: string
+      escrow_id:
+        type: string
+      id:
+        type: string
+      sequence_order:
+        type: integer
+      status:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_escrow.MilestoneStatus'
+      title:
+        type: string
+    type: object
+  github_com_didihart_vescrow_backend_internal_escrow.EscrowStatus:
+    enum:
+    - draft
+    - pending_acceptance
+    - accepted
+    - funded
+    - in_progress
+    - delivered
+    - completed
+    - disputed
+    - refunded
+    - partial_release
+    - cancelled
+    - expired
+    - rejected
+    type: string
+    x-enum-varnames:
+    - EscrowStatusDraft
+    - EscrowStatusPendingAcceptance
+    - EscrowStatusAccepted
+    - EscrowStatusFunded
+    - EscrowStatusInProgress
+    - EscrowStatusDelivered
+    - EscrowStatusCompleted
+    - EscrowStatusDisputed
+    - EscrowStatusRefunded
+    - EscrowStatusPartialRelease
+    - EscrowStatusCancelled
+    - EscrowStatusExpired
+    - EscrowStatusRejected
+  github_com_didihart_vescrow_backend_internal_escrow.Message:
+    properties:
+      attachment_url:
+        type: string
+      content:
+        type: string
+      created_at:
+        type: string
+      escrow_id:
+        type: string
+      id:
+        type: string
+      sender:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      sender_id:
+        type: string
+    type: object
+  github_com_didihart_vescrow_backend_internal_escrow.MilestoneStatus:
+    enum:
+    - pending
+    - in_progress
+    - completed
+    - disputed
+    type: string
+    x-enum-varnames:
+    - MilestoneStatusPending
+    - MilestoneStatusInProgress
+    - MilestoneStatusCompleted
+    - MilestoneStatusDisputed
+  internal_admin.ApproveRejectRequest:
+    properties:
+      reason:
+        type: string
+    type: object
+  internal_auth.ChangePasswordDTO:
+    properties:
+      current_password:
+        type: string
+      new_password:
+        maxLength: 72
+        minLength: 8
+        type: string
+    required:
+    - current_password
+    - new_password
+    type: object
+  internal_auth.DocumentType:
+    enum:
+    - bvn
+    - nin
+    - national_id
+    - passport
+    - drivers_license
+    - cac_cert
+    - utility_bill
+    type: string
+    x-enum-varnames:
+    - DocTypeBVN
+    - DocTypeNIN
+    - DocTypeNationalID
+    - DocTypePassport
+    - DocTypeDriversLicense
+    - DocTypeCACCert
+    - DocTypeUtilityBill
+  internal_auth.ForgotPasswordDTO:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  internal_auth.KYCDocumentStatus:
+    properties:
+      document_type:
+        $ref: '#/definitions/internal_auth.DocumentType'
+      id:
+        type: string
+      status:
+        $ref: '#/definitions/internal_auth.KYCStatus'
+      verified_at:
+        type: string
+    type: object
+  internal_auth.KYCStatus:
+    enum:
+    - none
+    - pending
+    - approved
+    - rejected
+    type: string
+    x-enum-varnames:
+    - KYCStatusNone
+    - KYCStatusPending
+    - KYCStatusApproved
+    - KYCStatusRejected
+  internal_auth.KYCStatusResponse:
+    properties:
+      bvn_linked:
+        type: boolean
+      documents:
+        items:
+          $ref: '#/definitions/internal_auth.KYCDocumentStatus'
+        type: array
+      kyc_status:
+        $ref: '#/definitions/internal_auth.KYCStatus'
+      kyc_tier:
+        $ref: '#/definitions/internal_auth.KYCTier'
+      nin_linked:
+        type: boolean
+    type: object
+  internal_auth.KYCSubmitData:
+    properties:
+      document_type:
+        allOf:
+        - $ref: '#/definitions/internal_auth.DocumentType'
+        example: passport
+      id:
+        example: c73a4fa4-7e8c-4a3b-8d9e-1f2a3b4c5d6f
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/internal_auth.KYCStatus'
+        example: pending
+    type: object
+  internal_auth.KYCTier:
+    enum:
+    - none
+    - tier1
+    - tier2
+    - tier3
+    type: string
+    x-enum-varnames:
+    - KYCTierNone
+    - KYCTier1
+    - KYCTier2
+    - KYCTier3
+  internal_auth.KYCVerifyData:
+    properties:
+      kyc_status:
+        allOf:
+        - $ref: '#/definitions/internal_auth.KYCStatus'
+        example: approved
+      kyc_tier:
+        allOf:
+        - $ref: '#/definitions/internal_auth.KYCTier'
+        example: tier1
+    type: object
+  internal_auth.LoginDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  internal_auth.RegisterDTO:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 100
+        minLength: 2
+        type: string
+      password:
+        maxLength: 72
+        minLength: 8
+        type: string
+      phone:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - phone
+    type: object
+  internal_auth.ResendOTPDTO:
+    properties:
+      channel:
+        enum:
+        - email
+        - phone
+        type: string
+      target:
+        type: string
+    required:
+    - channel
+    - target
+    type: object
+  internal_auth.ResetPasswordDTO:
+    properties:
+      email:
+        type: string
+      new_password:
+        maxLength: 72
+        minLength: 8
+        type: string
+      otp:
+        type: string
+    required:
+    - email
+    - new_password
+    - otp
+    type: object
+  internal_auth.StandardErrorResponse:
+    properties:
+      message:
+        example: An error occurred
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  internal_auth.SuccessKYCStatusResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_auth.KYCStatusResponse'
+      message:
+        example: KYC status retrieved
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_auth.SuccessKYCSubmitResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_auth.KYCSubmitData'
+      message:
+        example: KYC document submitted successfully. Awaiting admin approval.
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_auth.SuccessKYCVerifyResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_auth.KYCVerifyData'
+      message:
+        example: Verification successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_auth.SuccessLoginResponse:
+    properties:
+      data:
+        properties:
+          access_token:
+            example: eyJhbGciOiJSUzI1NiIs...
+            type: string
+        type: object
+      message:
+        example: Login successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_auth.SuccessUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_auth.UserResponse'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_auth.UpdateProfileDTO:
+    properties:
+      avatar_url:
+        maxLength: 500
+        type: string
+      name:
+        maxLength: 100
+        minLength: 2
+        type: string
+    type: object
+  internal_auth.UserResponse:
+    properties:
+      avatar_url:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      email_verified:
+        type: boolean
+      id:
+        type: string
+      is_2fa_enabled:
+        type: boolean
+      kyc_status:
+        $ref: '#/definitions/internal_auth.KYCStatus'
+      kyc_tier:
+        $ref: '#/definitions/internal_auth.KYCTier'
+      name:
+        type: string
+      phone:
+        type: string
+      phone_verified:
+        type: boolean
+      role:
+        type: string
+      role_id:
+        type: integer
+      status:
+        $ref: '#/definitions/internal_auth.UserStatus'
+      updated_at:
+        type: string
+    type: object
+  internal_auth.UserStatus:
+    enum:
+    - active
+    - suspended
+    - banned
+    type: string
+    x-enum-varnames:
+    - UserStatusActive
+    - UserStatusSuspended
+    - UserStatusBanned
+  internal_auth.ValidationErrorResponse:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.FieldError'
+        type: array
+      message:
+        example: Validation failed
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  internal_auth.VerifyBVNDTO:
+    properties:
+      bvn:
+        type: string
+    required:
+    - bvn
+    type: object
+  internal_auth.VerifyEmailDTO:
+    properties:
+      email:
+        type: string
+      otp:
+        type: string
+    required:
+    - email
+    - otp
+    type: object
+  internal_auth.VerifyNINDTO:
+    properties:
+      nin:
+        type: string
+    required:
+    - nin
+    type: object
+  internal_auth.VerifyPhoneDTO:
+    properties:
+      otp:
+        type: string
+      phone:
+        type: string
+    required:
+    - otp
+    - phone
+    type: object
+  internal_dispute.AddCommentDTO:
+    properties:
+      content:
+        type: string
+    required:
+    - content
+    type: object
+  internal_dispute.Dispute:
+    properties:
+      buyer_amount_kobo:
+        type: integer
+      comments:
+        items:
+          $ref: '#/definitions/internal_dispute.DisputeComment'
+        type: array
+      created_at:
+        type: string
+      description:
+        type: string
+      escrow:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_escrow.Escrow'
+      escrow_id:
+        type: string
+      evidence:
+        description: Relationships
+        items:
+          $ref: '#/definitions/internal_dispute.DisputeEvidence'
+        type: array
+      id:
+        type: string
+      opened_at:
+        type: string
+      opened_by:
+        type: string
+      opened_by_user:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      reason:
+        type: string
+      resolution:
+        $ref: '#/definitions/internal_dispute.DisputeResolution'
+      resolution_notes:
+        type: string
+      resolved_at:
+        type: string
+      resolved_by:
+        type: string
+      resolved_by_user:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      seller_amount_kobo:
+        type: integer
+      status:
+        $ref: '#/definitions/internal_dispute.DisputeStatus'
+    type: object
+  internal_dispute.DisputeComment:
+    properties:
+      author_id:
+        type: string
+      author_user:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      content:
+        type: string
+      created_at:
+        type: string
+      dispute_id:
+        type: string
+      id:
+        type: string
+      role:
+        allOf:
+        - $ref: '#/definitions/internal_dispute.DisputeCommentRole'
+        description: buyer | seller | admin
+    type: object
+  internal_dispute.DisputeCommentRole:
+    enum:
+    - buyer
+    - seller
+    - admin
+    type: string
+    x-enum-varnames:
+    - CommentRoleBuyer
+    - CommentRoleSeller
+    - CommentRoleAdmin
+  internal_dispute.DisputeEvidence:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      dispute_id:
+        type: string
+      file_type:
+        description: image, pdf, document
+        type: string
+      file_url:
+        type: string
+      id:
+        type: string
+      uploaded_by:
+        type: string
+      uploaded_by_user:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+    type: object
+  internal_dispute.DisputeResolution:
+    enum:
+    - full_refund
+    - full_release
+    - partial_split
+    type: string
+    x-enum-varnames:
+    - ResolutionFullRefund
+    - ResolutionFullRelease
+    - ResolutionPartialSplit
+  internal_dispute.DisputeStatus:
+    enum:
+    - open
+    - seller_responded
+    - under_review
+    - resolved
+    type: string
+    x-enum-varnames:
+    - DisputeStatusOpen
+    - DisputeStatusSellerResponded
+    - DisputeStatusUnderReview
+    - DisputeStatusResolved
+  internal_dispute.OpenDisputeDTO:
+    properties:
+      description:
+        type: string
+      escrow_id:
+        type: string
+      reason:
+        maxLength: 100
+        type: string
+    required:
+    - description
+    - escrow_id
+    - reason
+    type: object
+  internal_dispute.ResolveDisputeDTO:
+    properties:
+      buyer_amount_kobo:
+        type: integer
+      notes:
+        type: string
+      resolution:
+        enum:
+        - full_refund
+        - full_release
+        - partial_split
+        type: string
+      seller_amount_kobo:
+        type: integer
+    required:
+    - notes
+    - resolution
+    type: object
+  internal_dispute.SellerResponseDTO:
+    properties:
+      response:
+        type: string
+    required:
+    - response
+    type: object
+  internal_dispute.SuccessCommentResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_dispute.DisputeComment'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_dispute.SuccessDisputeListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/internal_dispute.Dispute'
+        type: array
+      message:
+        example: Operation successful
+        type: string
+      meta:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.PaginationMeta'
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_dispute.SuccessDisputeResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_dispute.Dispute'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_dispute.SuccessEvidenceResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_dispute.DisputeEvidence'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_dispute.UploadEvidenceDTO:
+    properties:
+      description:
+        maxLength: 500
+        type: string
+      file_type:
+        enum:
+        - image
+        - pdf
+        - document
+        type: string
+      file_url:
+        type: string
+    required:
+    - file_url
+    type: object
+  internal_escrow.CreateEscrowDTO:
+    properties:
+      amount_kobo:
+        type: integer
+      currency:
+        description: NGN
+        type: string
+      delivery_date:
+        type: string
+      description:
+        type: string
+      inspection_period_days:
+        maximum: 30
+        minimum: 1
+        type: integer
+      milestones:
+        items:
+          $ref: '#/definitions/internal_escrow.CreateMilestoneDTO'
+        type: array
+      payment_method:
+        type: string
+      seller_email:
+        type: string
+      title:
+        type: string
+    required:
+    - amount_kobo
+    - currency
+    - inspection_period_days
+    - seller_email
+    - title
+    type: object
+  internal_escrow.CreateMilestoneDTO:
+    properties:
+      amount_kobo:
+        type: integer
+      description:
+        type: string
+      sequence_order:
+        type: integer
+      title:
+        type: string
+    required:
+    - amount_kobo
+    - sequence_order
+    - title
+    type: object
+  internal_escrow.Escrow:
+    properties:
+      amount_kobo:
+        type: integer
+      buyer:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      buyer_id:
+        type: string
+      completed_at:
+        type: string
+      created_at:
+        type: string
+      currency:
+        type: string
+      delivered_at:
+        description: Index for auto-release cron
+        type: string
+      delivery_date:
+        type: string
+      delivery_proof_url:
+        type: string
+      description:
+        type: string
+      escrow_fee_kobo:
+        type: integer
+      expires_at:
+        type: string
+      funded_at:
+        type: string
+      id:
+        type: string
+      inspection_period_days:
+        type: integer
+      messages:
+        items:
+          $ref: '#/definitions/internal_escrow.Message'
+        type: array
+      metadata:
+        items:
+          type: integer
+        type: array
+      milestones:
+        description: Relationships
+        items:
+          $ref: '#/definitions/internal_escrow.EscrowMilestone'
+        type: array
+      payment_method:
+        type: string
+      platform_fee_kobo:
+        type: integer
+      seller:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      seller_id:
+        type: string
+      status:
+        $ref: '#/definitions/internal_escrow.EscrowStatus'
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  internal_escrow.EscrowMilestone:
+    properties:
+      amount_kobo:
+        type: integer
+      completed_at:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      due_date:
+        type: string
+      escrow_id:
+        type: string
+      id:
+        type: string
+      sequence_order:
+        type: integer
+      status:
+        $ref: '#/definitions/internal_escrow.MilestoneStatus'
+      title:
+        type: string
+    type: object
+  internal_escrow.EscrowStatus:
+    enum:
+    - draft
+    - pending_acceptance
+    - accepted
+    - funded
+    - in_progress
+    - delivered
+    - completed
+    - disputed
+    - refunded
+    - partial_release
+    - cancelled
+    - expired
+    - rejected
+    type: string
+    x-enum-varnames:
+    - EscrowStatusDraft
+    - EscrowStatusPendingAcceptance
+    - EscrowStatusAccepted
+    - EscrowStatusFunded
+    - EscrowStatusInProgress
+    - EscrowStatusDelivered
+    - EscrowStatusCompleted
+    - EscrowStatusDisputed
+    - EscrowStatusRefunded
+    - EscrowStatusPartialRelease
+    - EscrowStatusCancelled
+    - EscrowStatusExpired
+    - EscrowStatusRejected
+  internal_escrow.Message:
+    properties:
+      attachment_url:
+        type: string
+      content:
+        type: string
+      created_at:
+        type: string
+      escrow_id:
+        type: string
+      id:
+        type: string
+      sender:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      sender_id:
+        type: string
+    type: object
+  internal_escrow.MilestoneStatus:
+    enum:
+    - pending
+    - in_progress
+    - completed
+    - disputed
+    type: string
+    x-enum-varnames:
+    - MilestoneStatusPending
+    - MilestoneStatusInProgress
+    - MilestoneStatusCompleted
+    - MilestoneStatusDisputed
+  internal_escrow.SuccessEscrowListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/internal_escrow.Escrow'
+        type: array
+      message:
+        example: Operation successful
+        type: string
+      meta:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.PaginationMeta'
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_escrow.SuccessEscrowResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_escrow.Escrow'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_escrow.SuccessMessageResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_escrow.Message'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_escrow.SuccessMessagesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/internal_escrow.Message'
+        type: array
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_escrow.SuccessMilestoneResponse:
+    properties:
+      data:
+        $ref: '#/definitions/internal_escrow.EscrowMilestone'
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_escrow.SuccessMilestonesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/internal_escrow.EscrowMilestone'
+        type: array
+      message:
+        example: Operation successful
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_escrow.UpdateEscrowDTO:
+    properties:
+      amount_kobo:
+        type: integer
+      delivery_date:
+        type: string
+      description:
+        type: string
+      inspection_period_days:
+        type: integer
+      title:
+        type: string
+    type: object
+  internal_payment.InitializePaymentDTO:
+    properties:
+      callback_url:
+        type: string
+      escrow_id:
+        type: string
+    required:
+    - callback_url
+    - escrow_id
+    type: object
+  internal_payment.InitializePaymentResponse:
+    properties:
+      data:
+        properties:
+          authorization_url:
+            example: https://checkout.paystack.com/auth123
+            type: string
+          reference:
+            example: VESC_REF_abc123
+            type: string
+        type: object
+      message:
+        example: Payment initialized successfully
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_payment.StandardErrorResponse:
+    properties:
+      message:
+        example: An error occurred
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  internal_payment.ValidationErrorResponse:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.FieldError'
+        type: array
+      message:
+        example: Validation failed
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  internal_payment.VerifyPaymentResponse:
+    properties:
+      data:
+        properties:
+          amount_kobo:
+            example: 150000
+            type: integer
+          paid_at:
+            type: string
+          reference:
+            example: VESC_REF_abc123
+            type: string
+          status:
+            example: confirmed
+            type: string
+        type: object
+      message:
+        example: Payment status retrieved
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  internal_wallet.AccountDetails:
+    properties:
+      account_name:
+        type: string
+      account_number:
+        type: string
+    type: object
+  internal_wallet.Bank:
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+    type: object
+  internal_wallet.EntryType:
+    enum:
+    - debit
+    - credit
+    type: string
+    x-enum-varnames:
+    - EntryTypeDebit
+    - EntryTypeCredit
+  internal_wallet.LedgerCategory:
+    enum:
+    - escrow_fund
+    - escrow_release
+    - escrow_refund
+    - withdrawal
+    - platform_fee
+    - deposit
+    type: string
+    x-enum-varnames:
+    - CategoryEscrowFund
+    - CategoryEscrowRelease
+    - CategoryEscrowRefund
+    - CategoryWithdrawal
+    - CategoryPlatformFee
+    - CategoryDeposit
+  internal_wallet.LedgerEntry:
+    properties:
+      amount_kobo:
+        description: Always positive
+        type: integer
+      balance_after_kobo:
+        description: Snapshot of balance
+        type: integer
+      category:
+        $ref: '#/definitions/internal_wallet.LedgerCategory'
+      created_at:
+        type: string
+      description:
+        type: string
+      entry_type:
+        allOf:
+        - $ref: '#/definitions/internal_wallet.EntryType'
+        description: debit | credit
+      escrow:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_escrow.Escrow'
+      escrow_id:
+        type: string
+      id:
+        type: string
+      reference:
+        type: string
+      wallet_id:
+        type: string
+    type: object
+  internal_wallet.VerifyAccountRequest:
+    properties:
+      account_number:
+        type: string
+      bank_code:
+        type: string
+    required:
+    - account_number
+    - bank_code
+    type: object
+  internal_wallet.WithdrawRequest:
+    properties:
+      account_name:
+        type: string
+      account_number:
+        type: string
+      amount_kobo:
+        type: integer
+      bank_code:
+        type: string
+    required:
+    - account_name
+    - account_number
+    - amount_kobo
+    - bank_code
+    type: object
+  internal_wallet.Withdrawal:
+    properties:
+      account_name:
+        type: string
+      account_number:
+        type: string
+      amount_kobo:
+        type: integer
+      bank_code:
+        type: string
+      completed_at:
+        type: string
+      created_at:
+        type: string
+      failure_reason:
+        type: string
+      id:
+        type: string
+      recipient_code:
+        type: string
+      status:
+        $ref: '#/definitions/internal_wallet.WithdrawalStatus'
+      transfer_code:
+        type: string
+      user:
+        $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.User'
+      user_id:
+        type: string
+      wallet_id:
+        type: string
+    type: object
+  internal_wallet.WithdrawalStatus:
+    enum:
+    - pending
+    - processing
+    - completed
+    - failed
+    - reversed
+    type: string
+    x-enum-varnames:
+    - WithdrawalStatusPending
+    - WithdrawalStatusProcessing
+    - WithdrawalStatusCompleted
+    - WithdrawalStatusFailed
+    - WithdrawalStatusReversed
+host: localhost:3000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Vescrow Escrow Backend API Service with Authentication, Wallets, and
+    Escrows.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Vescrow API
+  version: "1.0"
+paths:
+  /api/v1/admin/kyc/submissions:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of submitted KYC documents, with optional status
+        filtering.
+      parameters:
+      - description: Filter by document status (pending, approved, rejected)
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns list of kyc document submissions preloaded with user
+            details
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List KYC submissions
+      tags:
+      - Admin Operations
+  /api/v1/admin/kyc/submissions/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific KYC document submission by its
+        ID, including the decrypted document number.
+      parameters:
+      - description: KYC Submission ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns detailed submission record with decrypted PII
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get KYC submission details
+      tags:
+      - Admin Operations
+  /api/v1/admin/kyc/submissions/{id}/approve:
+    put:
+      consumes:
+      - application/json
+      description: Approves a user's pending KYC submission, promoting the user's
+        KYC tier based on the document type, and logs audit.
+      parameters:
+      - description: KYC Submission ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns upgraded user tier and document status
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Approve KYC Submission
+      tags:
+      - Admin Operations
+  /api/v1/admin/kyc/submissions/{id}/reject:
+    put:
+      consumes:
+      - application/json
+      description: Rejects a user's pending KYC submission, requiring a mandatory
+        rejection reason, updates status, and logs audit.
+      parameters:
+      - description: KYC Submission ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Rejection details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_admin.ApproveRejectRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns rejection confirmation
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Reject KYC Submission
+      tags:
+      - Admin Operations
+  /api/v1/auth/change-password:
+    post:
+      consumes:
+      - application/json
+      description: Allows a logged-in user to change their password after validating
+        their current password.
+      parameters:
+      - description: Change Password Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.ChangePasswordDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Change password
+      tags:
+      - Authentication
+  /api/v1/auth/forgot-password:
+    post:
+      consumes:
+      - application/json
+      description: Initiates password recovery. Generates a password reset OTP and
+        sends it (mocked). Always returns 200 OK to prevent email enumeration.
+      parameters:
+      - description: Forgot Password Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.ForgotPasswordDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Request password reset
+      tags:
+      - Authentication
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Validates user credentials (email and password), logs login event
+        to audit trail, and returns an access token. Sets the refresh token as an
+        HTTP-only secure cookie.
+      parameters:
+      - description: Login Credentials
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.LoginDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns access_token in body and refresh_token in HttpOnly
+            cookie
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessLoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Login user
+      tags:
+      - Authentication
+  /api/v1/auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Invalidates the current session by clearing the refresh token cookie.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Logout user
+      tags:
+      - Authentication
+  /api/v1/auth/profile:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the profile details of the currently authenticated user.
+        PII fields (email, phone) are masked in the response.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - Authentication
+    put:
+      consumes:
+      - application/json
+      description: Updates the allowed profile fields (name, avatar_url) of the authenticated
+        user.
+      parameters:
+      - description: Profile Update Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.UpdateProfileDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user profile
+      tags:
+      - Authentication
+  /api/v1/auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Uses the refresh token from the HTTP-only cookie to generate and
+        return a new access token and refresh token pair.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns new access_token in body and refresh_token in HttpOnly
+            cookie
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessLoginResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Refresh access token
+      tags:
+      - Authentication
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new user with default 'user' role and KYC tier. Automatically
+        creates a default 'seller' wallet and logs a USER_REGISTERED event in the
+        audit trail.
+      parameters:
+      - description: Registration Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.RegisterDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Register a new user
+      tags:
+      - Authentication
+  /api/v1/auth/resend-otp:
+    post:
+      consumes:
+      - application/json
+      description: Generates and resends a new 6-digit OTP to the specified target
+        (email or phone).
+      parameters:
+      - description: OTP Request Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.ResendOTPDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Resend verification OTP
+      tags:
+      - Authentication
+  /api/v1/auth/reset-password:
+    post:
+      consumes:
+      - application/json
+      description: Completes password recovery by validating the password reset OTP
+        and updating the user's password.
+      parameters:
+      - description: Reset Password Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.ResetPasswordDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Reset password
+      tags:
+      - Authentication
+  /api/v1/auth/verify-email:
+    post:
+      consumes:
+      - application/json
+      description: Verifies user email using the 6-digit OTP sent to their email.
+        Marks email_verified as true and upgrades user to KYC Tier 1.
+      parameters:
+      - description: Verification Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.VerifyEmailDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Verify user email
+      tags:
+      - Authentication
+  /api/v1/auth/verify-phone:
+    post:
+      consumes:
+      - application/json
+      description: Verifies user phone number using the 6-digit OTP sent to their
+        phone.
+      parameters:
+      - description: Verification Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.VerifyPhoneDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      summary: Verify user phone number
+      tags:
+      - Authentication
+  /api/v1/disputes:
+    get:
+      consumes:
+      - application/json
+      description: User sees disputes on their escrows. Admin sees all disputes with
+        optional status filter.
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Items per page
+        in: query
+        name: per_page
+        type: integer
+      - description: Filter by dispute status (admin only)
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessDisputeListResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List disputes
+      tags:
+      - Disputes
+    post:
+      consumes:
+      - application/json
+      description: Buyer opens a dispute on a delivered escrow. Escrow status transitions
+        to 'disputed' and funds are locked.
+      parameters:
+      - description: Open Dispute Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_dispute.OpenDisputeDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessDisputeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Open a new dispute
+      tags:
+      - Disputes
+  /api/v1/disputes/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves full details of a dispute including evidence and comments.
+        Access restricted to escrow participants and admins.
+      parameters:
+      - description: Dispute ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessDisputeResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get dispute details
+      tags:
+      - Disputes
+  /api/v1/disputes/{id}/comment:
+    post:
+      consumes:
+      - application/json
+      description: Buyer, seller, or admin can post a comment to the dispute discussion
+        thread.
+      parameters:
+      - description: Dispute ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Comment Content
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_dispute.AddCommentDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessCommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Add comment to dispute thread
+      tags:
+      - Disputes
+  /api/v1/disputes/{id}/evidence:
+    post:
+      consumes:
+      - application/json
+      description: Buyer or seller uploads evidence (file URL, type, description)
+        to support their case.
+      parameters:
+      - description: Dispute ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Evidence Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_dispute.UploadEvidenceDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessEvidenceResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Upload dispute evidence
+      tags:
+      - Disputes
+  /api/v1/disputes/{id}/resolve:
+    put:
+      consumes:
+      - application/json
+      description: Admin resolves the dispute as full_refund, full_release, or partial_split.
+        Triggers wallet operations and creates audit log.
+      parameters:
+      - description: Dispute ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Resolution Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_dispute.ResolveDisputeDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessDisputeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Admin resolves a dispute
+      tags:
+      - Disputes
+  /api/v1/disputes/{id}/respond:
+    post:
+      consumes:
+      - application/json
+      description: Seller submits a written response to the buyer's dispute. Dispute
+        status transitions to 'seller_responded'.
+      parameters:
+      - description: Dispute ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Seller Response
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_dispute.SellerResponseDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_dispute.SuccessDisputeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Seller responds to dispute
+      tags:
+      - Disputes
+  /api/v1/escrows:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of escrows where the authenticated user
+        is either the buyer or the seller. Can filter by role and status.
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Items per page
+        in: query
+        name: per_page
+        type: integer
+      - description: Filter by role (buyer, seller)
+        in: query
+        name: role
+        type: string
+      - description: Filter by escrow status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowListResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List user escrows
+      tags:
+      - Escrows
+    post:
+      consumes:
+      - application/json
+      description: Allows a buyer (Tier 1 KYC or higher required) to create an escrow
+        transaction in draft state with the seller details.
+      parameters:
+      - description: Create Escrow Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_escrow.CreateEscrowDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new escrow transaction
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Enables the buyer to cancel the transaction. Only valid if the
+        escrow is in draft, pending_acceptance, or accepted states (pre-funding).
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Cancel an escrow transaction
+      tags:
+      - Escrows
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the full details of an escrow transaction. Access is
+        restricted to participants (buyer/seller) or admins.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get escrow by ID
+      tags:
+      - Escrows
+    put:
+      consumes:
+      - application/json
+      description: Allows the creator of the escrow (buyer) to edit terms (title,
+        description, amount, inspection period) while still in draft state.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Escrow Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_escrow.UpdateEscrowDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update draft escrow terms
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/accept:
+    put:
+      consumes:
+      - application/json
+      description: Designated seller accepts the proposed terms. Status transitions
+        to accepted.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Seller accepts escrow terms
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/approve-delivery:
+    put:
+      consumes:
+      - application/json
+      description: Buyer verifies delivery proof and completes the escrow, releasing
+        funds to the seller's wallet. Status transitions to completed.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Buyer approves delivery and releases funds
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/deliver:
+    put:
+      consumes:
+      - application/json
+      description: Seller completes job, uploads optional proof link, and marks transaction
+        as delivered. Status transitions to delivered.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Optional json containing delivery_proof_url
+        in: body
+        name: body
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Seller marks terms as delivered
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/dispute:
+    put:
+      consumes:
+      - application/json
+      description: Buyer disputes delivery within the inspection period, halting payout.
+        Status transitions to disputed.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Buyer raises a dispute
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/extend-inspection:
+    put:
+      consumes:
+      - application/json
+      description: Buyer requests additional days to inspect the delivered items.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Body containing additional_days
+        in: body
+        name: body
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Buyer extends the inspection window
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/fund:
+    post:
+      consumes:
+      - application/json
+      description: Simulates transaction funding from the buyer side, locking escrow
+        amount. Status transitions to funded.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Buyer funds the escrow
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/messages:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves chat logs/messages related to this escrow transaction.
+        Access restricted to participants.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessMessagesResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get escrow chat log messages
+      tags:
+      - Escrows
+    post:
+      consumes:
+      - application/json
+      description: Posts a new message in the chat log. Only allowed for escrow participants.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Message body (content, optional attachment_url)
+        in: body
+        name: body
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessMessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Send message in escrow chat
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/milestones:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves list of milestones for the given escrow. Access restricted
+        to participants or admins.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessMilestonesResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get milestones for an escrow
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/milestones/{mid}/approve:
+    put:
+      consumes:
+      - application/json
+      description: Buyer approves the completed milestone.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Milestone ID
+        in: path
+        name: mid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessMilestoneResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Buyer approves a milestone stage
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/milestones/{mid}/complete:
+    put:
+      consumes:
+      - application/json
+      description: Seller marks the specified milestone as complete. Status updates
+        to completed.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Milestone ID
+        in: path
+        name: mid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessMilestoneResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Seller completes a milestone stage
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/reject:
+    put:
+      consumes:
+      - application/json
+      description: Designated seller rejects the proposed terms. Status transitions
+        to rejected.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Seller rejects escrow terms
+      tags:
+      - Escrows
+  /api/v1/escrows/{id}/submit:
+    put:
+      consumes:
+      - application/json
+      description: Buyer submits draft terms to the designated seller for review.
+        Status changes to pending_acceptance.
+      parameters:
+      - description: Escrow ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_escrow.SuccessEscrowResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Submit escrow terms to the seller
+      tags:
+      - Escrows
+  /api/v1/kyc/status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the user's current KYC tier, status, linked BVN/NIN info,
+        and submitted document statuses.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessKYCStatusResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get KYC Status
+      tags:
+      - KYC
+  /api/v1/kyc/submit-document:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Saves uploaded identification document details, encrypts the document
+        number, and updates user KYC status to pending.
+      parameters:
+      - description: Type of document (passport, drivers_license, national_id, utility_bill,
+          cac_cert)
+        in: formData
+        name: document_type
+        required: true
+        type: string
+      - description: Document Identification Number
+        in: formData
+        name: document_number
+        required: true
+        type: string
+      - description: Uploaded Document image/pdf file
+        in: formData
+        name: document_file
+        required: true
+        type: file
+      - description: Uploaded Selfie image file (optional, required for tier 3)
+        in: formData
+        name: selfie_file
+        type: file
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessKYCSubmitResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Submit KYC Document
+      tags:
+      - KYC
+  /api/v1/kyc/verify-bvn:
+    post:
+      consumes:
+      - application/json
+      description: Verifies the format of the user's BVN, checks for duplicate linkages,
+        encrypts and links it to the profile, and upgrades the user's KYC tier/status.
+      parameters:
+      - description: BVN Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.VerifyBVNDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessKYCVerifyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify BVN
+      tags:
+      - KYC
+  /api/v1/kyc/verify-nin:
+    post:
+      consumes:
+      - application/json
+      description: Verifies the format of the user's NIN, checks for duplicate linkages,
+        encrypts and links it to the profile, and upgrades the user's KYC tier/status.
+      parameters:
+      - description: NIN Details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_auth.VerifyNINDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_auth.SuccessKYCVerifyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_auth.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_auth.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify NIN
+      tags:
+      - KYC
+  /api/v1/payments/initialize:
+    post:
+      consumes:
+      - application/json
+      description: Initiates a payment for an accepted escrow contract and returns
+        the Paystack authorization URL.
+      parameters:
+      - description: Payment Initialization Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_payment.InitializePaymentDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_payment.InitializePaymentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_payment.ValidationErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Initialize payment
+      tags:
+      - Payments
+  /api/v1/payments/verify/{reference}:
+    get:
+      consumes:
+      - application/json
+      description: Manually polls and verifies the status of a payment using its reference
+        on Paystack.
+      parameters:
+      - description: Paystack or System Payment Reference
+        in: path
+        name: reference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_payment.VerifyPaymentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify payment
+      tags:
+      - Payments
+  /api/v1/payments/webhook/paystack:
+    post:
+      consumes:
+      - application/json
+      description: Processes real-time webhook events sent by Paystack (verifies HMAC
+        signatures).
+      parameters:
+      - description: HMAC-SHA512 signature header
+        in: header
+        name: X-Paystack-Signature
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_payment.StandardErrorResponse'
+      summary: Paystack Webhook Handler
+      tags:
+      - Payments
+  /api/v1/wallet:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the balance, currency, and frozen status of the authenticated
+        user's primary seller wallet.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns balance_kobo, currency, is_frozen
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get wallet balance
+      tags:
+      - Wallet
+  /api/v1/wallet/banks:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the list of supported Nigerian banks from Paystack.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns list of banks
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/internal_wallet.Bank'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get Nigerian banks list
+      tags:
+      - Wallet
+  /api/v1/wallet/transactions:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of ledger entries for the user's primary
+        wallet, sorted by created_at DESC.
+      parameters:
+      - description: Page number (default 1)
+        in: query
+        name: page
+        type: integer
+      - description: Items per page (default 20)
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns paginated list of ledger entries
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/internal_wallet.LedgerEntry'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get wallet transactions
+      tags:
+      - Wallet
+  /api/v1/wallet/verify-account:
+    post:
+      consumes:
+      - application/json
+      description: Resolves a bank account number and bank code via Paystack API to
+        confirm the account name.
+      parameters:
+      - description: Account details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_wallet.VerifyAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns resolved account name
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_wallet.AccountDetails'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify NUBAN bank account
+      tags:
+      - Wallet
+  /api/v1/wallet/withdraw:
+    post:
+      consumes:
+      - application/json
+      description: Initiates a bank payout request. Validates tier limits, sufficient
+        balance, 24h cooldown on first withdrawal, debits wallet and creates pending
+        payout record. Requires KYC Tier >= 1.
+      parameters:
+      - description: Withdrawal details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/internal_wallet.WithdrawRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns the created pending withdrawal record
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/internal_wallet.Withdrawal'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Request withdrawal
+      tags:
+      - Wallet
+  /api/v1/wallet/withdrawals:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of withdrawal requests submitted by
+        the authenticated user, ordered by created_at DESC.
+      parameters:
+      - description: Page number (default 1)
+        in: query
+        name: page
+        type: integer
+      - description: Items per page (default 20)
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns paginated list of withdrawals
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/internal_wallet.Withdrawal'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_didihart_vescrow_backend_internal_common.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get withdrawals history
+      tags:
+      - Wallet
+securityDefinitions:
+  BearerAuth:
+    description: Paste your raw JWT access token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
