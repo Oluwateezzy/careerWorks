@@ -1,16 +1,16 @@
-# Systems Architecture & Technical Engineering Documentation (`docsplan`)
+# Engineering Systems Architecture & Career Works Portfolio (`docsplan`)
 
-[![Architecture](https://img.shields.io/badge/Architecture-Enterprise--Grade-blue.svg)](#project-portfolio)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Professional%20Career%20Works-blue.svg)](#executive-overview)
 [![Tech Stack](https://img.shields.io/badge/Stack-Go%20%7C%20TypeScript%20%7C%20NestJS%20%7C%20Next.js%20%7C%20PostgreSQL-navy.svg)](#technology-stack--domain-breakdown)
 [![Compliance](https://img.shields.io/badge/Compliance-CBN%20CSAT%20%7C%20ISO%2027001%20%7C%20FFIEC-green.svg)](#3-sbts--enterprise-security--regulatory-governance)
 
-Welcome to the **Systems Architecture & Technical Engineering Documentation** repository. This workspace hosts production-grade system blueprints, financial ledger specifications, distributed state management designs, security audit matrices, and regulatory compliance engines developed across high-scale platforms.
+Welcome to my **Engineering Systems Architecture & Professional Career Works** repository. This workspace aggregates production-grade system blueprints, financial ledger specifications, distributed state management designs, security audit matrices, and regulatory compliance engines that I have designed, architected, and delivered across organizations in my engineering career.
 
 ---
 
 ## Executive Overview
 
-This repository captures complex multi-tier software architectures, database schemas, cryptographic flow designs, and automated compliance engines organized into **three major domains**:
+This repository captures complex multi-tier software architectures, database schemas, cryptographic flow designs, and automated compliance engines that reflect my technical leadership and hands-on systems engineering deliverables across **three primary domain initiatives**:
 
 ```
 docsplan/
@@ -25,7 +25,7 @@ docsplan/
 
 ### 1. Charisol — Collaborative VCS & Design Infrastructure (`/charisol`)
 
-Design system infrastructure featuring Git-like multi-user collaboration, automated token classification engines, and state synchronization:
+Design system infrastructure engineered for Git-like multi-user collaboration, automated token classification engines, and real-time state synchronization:
 
 | Document | Category | Scope / Key Focus |
 | :--- | :--- | :--- |
@@ -44,7 +44,7 @@ Design system infrastructure featuring Git-like multi-user collaboration, automa
 
 ### 2. QSD — Vescrow Escrow & Financial Systems (`/QSD`)
 
-Production financial platform providing escrow, double-entry bookkeeping, Paystack payment webhooks, and regulatory compliance for the Nigerian market:
+Production financial platform architectural specification providing escrow, double-entry bookkeeping, Paystack payment webhooks, and regulatory compliance for the Nigerian financial market:
 
 | Document | Category | Scope / Key Focus |
 | :--- | :--- | :--- |
@@ -63,7 +63,7 @@ Production financial platform providing escrow, double-entry bookkeeping, Paysta
 
 ### 3. SBTS — Enterprise Security & Regulatory Governance (`/SBTS`)
 
-Security assessment systems, regulatory compliance engines, and OSINT intelligence frameworks:
+Security assessment systems, regulatory compliance engines, and OSINT intelligence frameworks architected for enterprise governance:
 
 | Document | Category | Scope / Key Focus |
 | :--- | :--- | :--- |
@@ -84,7 +84,7 @@ Security assessment systems, regulatory compliance engines, and OSINT intelligen
 
 ### 1. Collaborative Branching & 3-Way Merge (`/charisol`)
 
-The Charisol architecture extends design token storage into a Git-like version control system:
+My architectural design for Charisol extends design token storage into a Git-like version control system:
 
 ```mermaid
 graph TB
@@ -121,7 +121,7 @@ graph TB
 
 ### 2. Double-Entry Financial Ledger & Escrow (`/QSD`)
 
-The Vescrow backend leverages a domain-driven **Modular Monolith** in Go, backed by double-entry accounting invariants to eliminate balance drift:
+The Vescrow backend leverages a domain-driven **Modular Monolith** in Go, backed by double-entry accounting invariants I implemented to eliminate balance drift:
 
 ```mermaid
 sequenceDiagram
@@ -173,7 +173,7 @@ The Central Bank of Nigeria (CBN) Cybersecurity Self-Assessment Tool (CSAT) tran
 
 ---
 
-## How to Explore This Documentation
+## How to Explore My Work
 
 1. **For System Architecture & Design System Engineering**:
    - Begin with [charisol/ARCHITECTURE.md](file:///Users/oluwatobiloba/Desktop/personal/docsplan/charisol/ARCHITECTURE.md) for VCS branching design.
