@@ -22,7 +22,7 @@ This document describes the target architecture for Strata v2. It covers the cur
 
 ### Relationship to the v1 plan
 
-[`../1789987065356-strata-live-prototype-plan.md`](../1789987065356-strata-live-prototype-plan.md) assumed that Strata would read Figma through the REST API, using a Figma URL and a stored credential. v2 replaces that with the plugin:
+[`../strata-live-prototype-handoff-plan.md`](../strata-live-prototype-handoff-plan.md) assumed that Strata would read Figma through the REST API, using a Figma URL and a stored credential. v2 replaces that with the plugin:
 
 | v1 section | Status in v2 |
 |---|---|

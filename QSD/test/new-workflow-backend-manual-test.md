@@ -703,7 +703,7 @@ SELECT * FROM appeals ORDER BY created_at DESC;
 
 **Document version:** 1.1  
 **Last updated:** August 2026  
-**Related guides:** [phase5-escrow-manual-test.md](./phase5-escrow-manual-test.md), [payment_manual_test_guide.md](./payment_manual_test_guide.md), [phase8-dispute-manual-test.md](./phase8-dispute-manual-test.md)
+**Related guides:** [phase5-escrow-manual-test.md](./phase5-escrow-manual-test.md), [payment-manual-test-guide.md](./payment-manual-test-guide.md), [phase8-dispute-manual-test.md](./phase8-dispute-manual-test.md)
 
 ---
 
