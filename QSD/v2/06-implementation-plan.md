@@ -10,12 +10,12 @@
 
 | # | Document | Scope |
 |---|---|---|
-| 00 | [Architecture Overview](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v2/00-architecture-overview.md) | System-wide architectural changes, state machine diagrams, file impact matrix |
-| 01 | [Phase 1 — Escrow Flow Redesign](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v2/01-phase1-escrow-flow-redesign.md) | Fund-on-create, remove confirm delivery, merge verify+approve, completed lock |
-| 02 | [Phase 2 — Rating Penalty](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v2/02-phase2-rating-penalty.md) | Trust score penalty for buyer non-verification timeout |
-| 03 | [Phase 3 — Wallet → Ledger](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v2/03-phase3-wallet-to-ledger.md) | Systematic rename of all user-facing "Wallet" to "Ledger" |
-| 04 | [Phase 4 — Escrow Guidelines](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v2/04-phase4-escrow-guidelines.md) | Guidelines content, agreement flow, persistent access points |
-| 05 | [Phase 5 — Theme Removal & Sidebar Cleanup](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v2/05-phase5-theme-removal-sidebar-cleanup.md) | Delete 100 themes, remove KYC/Notifications/Settings from sidebar only (pages stay accessible via navbar) |
+| 00 | [Architecture Overview](./00-architecture-overview.md) | System-wide architectural changes, state machine diagrams, file impact matrix |
+| 01 | [Phase 1 — Escrow Flow Redesign](./01-phase1-escrow-flow-redesign.md) | Fund-on-create, remove confirm delivery, merge verify+approve, completed lock |
+| 02 | [Phase 2 — Rating Penalty](./02-phase2-rating-penalty.md) | Trust score penalty for buyer non-verification timeout |
+| 03 | [Phase 3 — Wallet → Ledger](./03-phase3-wallet-to-ledger.md) | Systematic rename of all user-facing "Wallet" to "Ledger" |
+| 04 | [Phase 4 — Escrow Guidelines](./04-phase4-escrow-guidelines.md) | Guidelines content, agreement flow, persistent access points |
+| 05 | [Phase 5 — Theme Removal & Sidebar Cleanup](./05-phase5-theme-removal-sidebar-cleanup.md) | Delete 100 themes, remove KYC/Notifications/Settings from sidebar only (pages stay accessible via navbar) |
 
 ---
 

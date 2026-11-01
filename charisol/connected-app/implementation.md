@@ -1,6 +1,6 @@
 # Connected Apps Tracking — Implementation Plan
 
-> **Prerequisite**: Read [ARCHITECTURE.md](file:///Users/oluwatobiloba/Desktop/charisol/design_system/docsplan/connected_app/ARCHITECTURE.md) first for the full system design and data model.
+> **Prerequisite**: Read [architecture.md](./architecture.md) first for the full system design and data model.
 
 ---
 

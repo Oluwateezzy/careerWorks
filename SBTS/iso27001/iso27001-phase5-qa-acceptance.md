@@ -2,7 +2,7 @@
 
 **Portal:** `/institution/dashboard?portal=ISO27001&tab=controls`  
 **Primary control under test:** **A.5.1 Policies for information security**  
-**Spec:** [ISO27001_Portal_Redesign_Tasks.md](./ISO27001_Portal_Redesign_Tasks.md) §1.1–§1.2  
+**Spec:** [iso27001-portal-redesign-tasks.md](./iso27001-portal-redesign-tasks.md) §1.1–§1.2  
 **Date prepared:** 2026-07-24
 
 ---

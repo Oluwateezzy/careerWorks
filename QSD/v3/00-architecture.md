@@ -576,5 +576,5 @@ Content-Type: application/json
 This architecture delivers a defensible, highly scalable, and legally sound dispute resolution system for Vescrow. By combining **algorithmic triage**, **objective carrier evidence extraction**, **assisted mediation**, and **bounded cryptographic enforcement**, Vescrow drastically reduces operational overhead while protecting transaction integrity.
 
 Proceed to:
-- [01-decision-review.md](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v3/01-decision-review.md) for detailed Architectural Decision Records (ADRs).
-- [IMPLEMENTATION_PLAN.md](file:///Users/oluwatobiloba/Desktop/qsd/vescrow/docsplan/v3/IMPLEMENTATION_PLAN.md) for master execution phases and task dependencies.
+- [00-decision-review.md](./00-decision-review.md) for detailed Architectural Decision Records (ADRs).
+- [07-implementation-plan.md](./07-implementation-plan.md) for master execution phases and task dependencies.

@@ -2,7 +2,7 @@
 
 > **Version:** 1.0  
 > **Date:** 2026-07-13  
-> **Architecture Reference:** [ARCHITECTURE.md](file:///Users/oluwatobiloba/Desktop/charisol/design_system/docsplan/ARCHITECTURE.md)  
+> **Architecture Reference:** [vcs-branching-architecture.md](./vcs-branching-architecture.md)  
 > **Status:** DRAFT — Awaiting Approval
 
 ---
@@ -822,7 +822,7 @@ Write comprehensive integration tests that cover the full collaborative workflow
 - [ ] Tests cover backend API + frontend service layer
 - [ ] No regression in existing 151 backend tests
 - [ ] No regression in existing 354 frontend tests
-- [ ] Verify manual UI flows using the [Manual UI Test Guide](file:///Users/oluwatobiloba/Desktop/charisol/design_system/docsplan/MANUAL_UI_TEST_GUIDE.md)
+- [ ] Verify manual UI flows using the [Manual UI Test Guide](./manual-ui-test-guide.md)
 
 ---
 

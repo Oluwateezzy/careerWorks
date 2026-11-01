@@ -268,7 +268,7 @@ Prefix: `ISO-P{phase}-{nn}`
 
 | Task ID | Task | Validation criteria | Status |
 |---------|------|---------------------|--------|
-| **ISO-P5-01** | Manual QA script for control **A.5.1** matching mockup flows + §1.2 score examples (Effective+5/5=100, Effective+4/5=86, N/A, add/remove checklist, SoA justification read-only). | Checklist signed; screenshots or notes attached to PR/issue. | **Done** — script + automated §1.2 in [ISO27001_Phase5_QA_Acceptance.md](./ISO27001_Phase5_QA_Acceptance.md); live UI boxes for human sign-off |
+| **ISO-P5-01** | Manual QA script for control **A.5.1** matching mockup flows + §1.2 score examples (Effective+5/5=100, Effective+4/5=86, N/A, add/remove checklist, SoA justification read-only). | Checklist signed; screenshots or notes attached to PR/issue. | **Done** — script + automated §1.2 in [iso27001-phase5-qa-acceptance.md](./iso27001-phase5-qa-acceptance.md); live UI boxes for human sign-off |
 | **ISO-P5-02** | Regression: Clauses tab persistence unaffected; CBN CSAT portal unaffected. | Spot-check clause 5.2 / 6.1 save+reload; open `?portal=CBN_CSAT` workbook still loads. | **Done** — portal wiring intact; `npm run test:csat` 15 PASS; FE/BE Annex suites PASS; manual clause/CSAT smoke in QA script §3 |
 
 **Exit gate:** Annex A redesign accepted; no regressions on Clauses or CSAT. **Met for automated acceptance**; complete manual UAT checkboxes in the Phase 5 QA doc before release sign-off.
@@ -462,7 +462,7 @@ If catalogue `questions` is empty, seed a single placeholder item `"Confirm cont
 
 ## 11. Phase 5 acceptance evidence (2026-07-24)
 
-Full checklist: [ISO27001_Phase5_QA_Acceptance.md](./ISO27001_Phase5_QA_Acceptance.md)
+Full checklist: [iso27001-phase5-qa-acceptance.md](./iso27001-phase5-qa-acceptance.md)
 
 | Suite | Result |
 |-------|--------|

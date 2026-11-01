@@ -2,7 +2,7 @@
 
 **Surface:** Compliance Portal workbook at `/institution/dashboard?portal=CBN_CSAT` (and `?tab=…`)  
 **Goal:** Move all workbook implementation and core functionality to NestJS + Prisma; remove frontend mock persistence and client-side scoring as source of truth.  
-**Reference (historical):** [CBN_CSAT_Implementation_Plan.md](./CBN_CSAT_Implementation_Plan.md)  
+**Reference (historical):** [cbn-csat-implementation-plan.md](./cbn-csat-implementation-plan.md)  
 **Out of scope:** Legacy control catalogue (`DOMAINS` + `Assessment.domainData` scoring on `/institution/assessment`), Excel/PDF export (follow-up; see Non-goals).
 
 ---
@@ -116,7 +116,7 @@ All methods currently use `sleep()` fake latency and process-local variables —
 
 | Task ID | Task | Validation criteria | Status |
 |---------|------|---------------------|--------|
-| **CSAT-MIG-P0-01** | Produce done-vs-todo map against [CBN_CSAT_Implementation_Plan.md](./CBN_CSAT_Implementation_Plan.md) (P0–P6) vs repo (Prisma, seed, UI, Nest). | Written section in this doc (or linked appendix) marks each old `CSAT-P*-*` as Done / Partial / Missing; Nest API and FE HTTP wiring marked Missing. | **Done** — §10 |
+| **CSAT-MIG-P0-01** | Produce done-vs-todo map against [cbn-csat-implementation-plan.md](./cbn-csat-implementation-plan.md) (P0–P6) vs repo (Prisma, seed, UI, Nest). | Written section in this doc (or linked appendix) marks each old `CSAT-P*-*` as Done / Partial / Missing; Nest API and FE HTTP wiring marked Missing. | **Done** — §10 |
 | **CSAT-MIG-P0-02** | Freeze OpenAPI-style contract mirroring `csatService` shapes in `types.ts`, with required `assessmentId` on all assessment-scoped routes. | Contract checklist lists every method above with HTTP verb/path/DTO; FE tab props need no shape breakage beyond adding `assessmentId`. | **Done** — §11 |
 | **CSAT-MIG-P0-03** | Document tenancy rules: caller may only read/write CSAT data for assessments belonging to `req.user.institutionId`. | Written rule + list of endpoints that must enforce it; includes rejection of cross-institution `assessmentId`. | **Done** — §12 |
 | **CSAT-MIG-P0-04** | Confirm catalog ID strategy: stable IDs for attributes/statements used as response keys (seed deterministic IDs or map FE string ids → DB uuids). | Decision recorded; sample join of one IR attribute response and one maturity statement response round-trips without orphan keys. | **Done** — §13 |

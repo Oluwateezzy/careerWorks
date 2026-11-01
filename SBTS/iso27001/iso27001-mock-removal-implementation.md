@@ -3,7 +3,7 @@
 **Surface:** Compliance Portal — ISO 27001 Framework  
 **Goal:** Catalog every mock contract, hardcoded identity, placeholder stub, and demo-mode artefact still active in the ISO 27001 portal; provide a phased implementation plan with unique task IDs and validation criteria for replacing each with production-grade integration.  
 **Date:** 2026-08-10  
-**Depends on:** [ISO27001_Portal_Redesign_Tasks.md](./ISO27001_Portal_Redesign_Tasks.md) (Phases 0–5 = Done)
+**Depends on:** [iso27001-portal-redesign-tasks.md](./iso27001-portal-redesign-tasks.md) (Phases 0–5 = Done)
 
 ---
 
@@ -353,7 +353,7 @@ npm run build
 
 ## 8. Relationship to Existing Redesign Tasks
 
-This document complements [ISO27001_Portal_Redesign_Tasks.md](./ISO27001_Portal_Redesign_Tasks.md) which completed Phases 0–5 (Annex A scoring, SoA ownership, Overview consistency, backend hardening, secondary tab mock cleanup, QA).
+This document complements [iso27001-portal-redesign-tasks.md](./iso27001-portal-redesign-tasks.md) which completed Phases 0–5 (Annex A scoring, SoA ownership, Overview consistency, backend hardening, secondary tab mock cleanup, QA).
 
 **What was already fixed by the redesign:**
 - ✅ `generateRisks()`, `generateActivities()`, `generateAudits()`, `generateTrendData()` — removed

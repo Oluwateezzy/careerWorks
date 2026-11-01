@@ -2,7 +2,7 @@
 
 > **Version:** 1.0  
 > **Date:** 2026-07-29  
-> **Architecture Reference:** [TOKEN_CLASSIFICATION_ARCHITECTURE.md](file:///Users/oluwatobiloba/Desktop/charisol/design_system/docsplan/TOKEN_CLASSIFICATION_ARCHITECTURE.md)  
+> **Architecture Reference:** [token-classification-architecture.md](./token-classification-architecture.md)  
 > **Status:** 🟡 Pending Approval
 
 ---
