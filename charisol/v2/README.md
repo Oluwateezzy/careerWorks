@@ -5,7 +5,7 @@
 | [`01-architecture.md`](./01-architecture.md) | Goals, the current-state audit with file and line evidence, key decisions, data contracts (snapshot schema v2, DynamoDB, API), sequence diagrams, renderer and compiler design, security, infrastructure, and risks |
 | [`02-implementation-plan.md`](./02-implementation-plan.md) | Phases 0–7 with tasks, task validation, phase exit criteria, parallel tracks, fixtures, and requirement traceability |
 
-Supersedes the Figma-REST parts of [`../1789987065356-strata-live-prototype-plan.md`](../1789987065356-strata-live-prototype-plan.md). See architecture §1, "Relationship to the v1 plan".
+Supersedes the Figma-REST parts of [`../strata-live-prototype-handoff-plan.md`](../strata-live-prototype-handoff-plan.md). See architecture §1, "Relationship to the v1 plan".
 
 ## The workflow in one paragraph
 
